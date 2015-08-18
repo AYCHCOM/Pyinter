@@ -9,6 +9,12 @@ def test_interval_copy():
     assert i.closedopen(1, 4).copy() == i.closedopen(1, 4)
     assert i.closed(1, 4).copy() == i.closed(1, 4)
 
+def test_replace():
+    assert i.open(1, 4).replace(upper_value=5) == i.open(1, 5)
+    assert i.open(1, 4).replace(upper=i.Interval.CLOSED) == i.openclosed(1, 4)
+    assert i.open(1, 4).replace(lower=i.Interval.CLOSED) == i.closedopen(1, 4)
+    assert i.open(1, 4).replace(lower_value=0) == i.open(0, 4)
+
 def test_overlaps():
     assert i.open(1,4).overlaps(i.open(3, 6))
     assert i.open(3,6).overlaps(i.open(1, 4))
